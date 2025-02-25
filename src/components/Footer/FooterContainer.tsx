@@ -1,10 +1,27 @@
 import Footer from "./Footer.tsx";
+import styled from "styled-components";
+import {theme} from "../styles/theme.ts";
+
+const StyledFooterContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+    
+    background-color: rgba(0, 0, 0, 0.6);
+    
+    color: ${theme.colors.silver};
+`;
 
 const FooterContainer = ()  => {
     return (
-        <div>
+        <StyledFooterContainer>
             <Footer />
-        </div>
+        </StyledFooterContainer>
     )
 }
 
