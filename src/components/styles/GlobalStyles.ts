@@ -8,16 +8,8 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
     }
     
-    html {
-        scroll-behavior: smooth;
-    }
-    
     a {
         color: ${theme.colors.softgray};
-    }
-    
-    a::before {
-        content: '🔗';
     }
 `;
 
