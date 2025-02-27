@@ -3,6 +3,7 @@ import Header from "./Header.tsx";
 import Spinner from "../common/Spinner.tsx";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
+import {Link} from "react-router-dom";
 
 interface Props {
     author: string
@@ -10,16 +11,31 @@ interface Props {
 
 const StyledHeaderContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
     
     width: 100%;
     
     padding-top: 20px;
     padding-bottom: 20px;
     
-    border-radius: 0 0 20px 20px;
-    
     background-color: ${theme.colors.sienna};
+`;
+
+const HeaderWrapper = styled.div`
+    color: inherit;
+    text-decoration: none;
+`;
+
+const LogoWrapper = styled.div`
+    position: absolute;
+    left: 25px;
+`;
+
+const Logo = styled.img`
+
 `;
 
 const HeaderContainer = (props: Props) => {
@@ -36,11 +52,21 @@ const HeaderContainer = (props: Props) => {
 
     return (
         <StyledHeaderContainer>
-            <Header author={data?.author ?? ''}
-                    mainTitle={data?.mainTitle ?? ''}
-                    subTitle={data?.subTitle ?? ''}
-                    email={data?.email ?? ''}
-            />
+            <LogoWrapper>
+                <Link to={`/`} style={{ textDecoration: 'none' }}>
+                    <Logo src='/assets/M.png'/>
+                </Link>
+            </LogoWrapper>
+            <HeaderWrapper>
+                <Link to={`/${props.author}`} style={{ textDecoration: 'none' }}>
+                    <Header author={data?.author ?? ''}
+                            mainTitle={data?.mainTitle ?? ''}
+                            subTitle={data?.subTitle ?? ''}
+                            email={data?.email ?? ''}
+                            profile_image_url={data?.profile_image_url ?? ''}
+                    />
+                </Link>
+            </HeaderWrapper>
         </StyledHeaderContainer>
     )
 }

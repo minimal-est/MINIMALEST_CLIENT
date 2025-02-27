@@ -1,5 +1,4 @@
 import {createGlobalStyle} from "styled-components";
-import {theme} from "./theme.ts";
 
 const GlobalStyles = createGlobalStyle`
     body {
@@ -9,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
     }
     
     a {
-        color: ${theme.colors.softgray};
+        color: inherit;
     }
 `;
 

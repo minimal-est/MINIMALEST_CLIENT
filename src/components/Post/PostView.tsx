@@ -12,6 +12,7 @@ const StyledPostView = styled.div`
     background-color: ${theme.colors.ghostwhite};
     padding: 20px;
     border-radius: 10px;
+    max-width: 900px;
     
     @media (max-width: 900px) {
         width: 95%;

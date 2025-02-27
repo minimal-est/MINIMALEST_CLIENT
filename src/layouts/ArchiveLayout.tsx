@@ -12,7 +12,10 @@ const StyledArchiveLayout = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     gap: 50px;
+    
+    min-height: 100vh;
 `;
 
 const ArchiveLayout = (props: Props) => {

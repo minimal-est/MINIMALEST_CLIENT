@@ -6,6 +6,7 @@ const StyledHeader = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 `;
 
 const StyledAuthor = styled.div`
@@ -14,10 +15,35 @@ const StyledAuthor = styled.div`
     color: ${theme.colors.ghostwhite};
 `;
 
+const ProfileWrapper = styled.div`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+`;
+
+const Profile = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;
+
+const AuthorInfoWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+`;
+
 const Header = (props: IArchiveInfo) => {
     return (
         <StyledHeader>
-            <StyledAuthor>{props.author}</StyledAuthor>
+            <AuthorInfoWrapper>
+                <ProfileWrapper>
+                    <Profile src={props.profile_image_url} />
+                </ProfileWrapper>
+                <StyledAuthor>{props.author}</StyledAuthor>
+            </AuthorInfoWrapper>
             <div>{props.mainTitle}</div>
         </StyledHeader>
     )

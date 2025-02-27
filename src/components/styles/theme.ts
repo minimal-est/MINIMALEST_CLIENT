@@ -15,6 +15,6 @@ export const theme = {
 
     user: {
         backgroundImage: `url('/assets/IMG_0743.png')`,
-        backgroundColor: '#E97451',
+        backgroundColor: '#EEEEEE',
     }
 }
