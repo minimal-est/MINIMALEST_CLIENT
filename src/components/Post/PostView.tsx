@@ -46,11 +46,12 @@ const StyledCreatedAtText = styled.div`
     color: ${theme.colors.silver};
 `;
 
-const PostView = (props: IPostView) => {
+const PostView = (props: IPostView & {isAuthenticated: boolean}) => {
 
     return (
         <StyledPostView>
             <PostInfo>
+                <div>{props.isAuthenticated ? '로그인중' : '비로그인중'}</div>
                 <TextWithBackground>📁{props.folderName}</TextWithBackground>
                 <StyledCreatedAtText>{props.createdAt}</StyledCreatedAtText>
             </PostInfo>

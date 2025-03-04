@@ -4,39 +4,34 @@ import PostCreateContainer from "../components/Post/PostCreateContainer.tsx";
 import React, {useEffect, useState} from "react";
 import usePostCreate from "../hooks/api/usePostCreate.tsx";
 import {toast} from "react-toastify";
-import useFindAndValidateMember from "../hooks/api/useFindAndValidateMember.tsx";
-import getEmailFromToken from "../utils/getEmailFromToken.ts";
 import useFolderFlat from "../hooks/api/useFolderFlat.tsx";
+import validateAuthorFromEmailToken from "../utils/validateAuthorFromEmailToken.ts";
 
 const ArchivePostCreate = () => {
 
     const params = useParams();
     const author = params.author ?? "";
+    const navigate = useNavigate();
 
     const {mutate} = usePostCreate(author);
-
     const [postValue, setPostValue] = useState<string>("");
     const [titleValue, setTitleValue] = useState<string>("");
     const [selectedFolder, setSelectedFolder] = useState<{value: number, label: string}>({value: -1, label: ''});
-    const navigate = useNavigate();
-
-    const {
-        data: memberData,
-        // isLoading: memberIsLoading
-        isError: memberIsError,
-    } = useFindAndValidateMember(getEmailFromToken, author);
-
-    const {
-        data: folderData,
-    } = useFolderFlat(author);
+    const {data: folderData,} = useFolderFlat(author);
 
     useEffect(() => {
-        // 로그인되지 않은 경우 로그인 페이지로 리디렉션
-        if (memberIsError) {
-            toast.error('로그인 상태가 아닙니다. 로그인 후 다시 시도해주세요.');
-            navigate(`/${author}`); // 로그인 페이지로 리디렉션
+        const validateLogin = async () => {
+            const validationRes = await validateAuthorFromEmailToken(author);
+            if (!validationRes) {
+                toast.error('권한이 없습니다. 로그인 해주세요!', {
+                    autoClose: 3000,
+                })
+                navigate(`/${author}`);
+            }
         }
-    }, [memberIsError, memberData, navigate]);
+
+        validateLogin();
+    }, []);
 
     useEffect(() => {
         if (folderData && folderData.length > 0) {
