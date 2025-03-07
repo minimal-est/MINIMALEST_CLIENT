@@ -4,6 +4,7 @@ export interface IPostView {
     content: string;
     folderId: number;
     folderName: string;
+    postRole: string;
 
     createdAt: string;
     lastModifiedAt: string;

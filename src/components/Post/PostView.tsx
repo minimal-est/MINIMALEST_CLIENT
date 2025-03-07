@@ -1,9 +1,11 @@
 import {IPostView} from "../../interfaces/dto/IPostView.ts";
-import ReactQuill from "react-quill-new";
 import {QuillStyles} from "../Editor/QuillStyles.ts";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
 import TextWithBackground from "../Text/TextWithBackground.tsx";
+import Button from "../Button/Button.tsx";
+import Content from "./Content.tsx";
+import {StyledDivider, StyledTitle} from "./postView.styles.ts";
 
 const StyledPostView = styled.div`
     display: flex;
@@ -19,21 +21,6 @@ const StyledPostView = styled.div`
     }
 `;
 
-const StyledTitle = styled.div`
-    font-size: 40px;
-    font-weight: bold;
-    color: ${theme.colors.charcoal};
-`;
-
-const StyledDivider = styled.hr`
-    width: 100%;
-    margin: 20px 0;
-    border: none;
-    height: 1px;
-    background-color: ${theme.colors.softgray};
-    opacity: 0.6;
-`;
-
 const PostInfo = styled.div`
     display: flex;
     flex-direction: row;
@@ -46,24 +33,54 @@ const StyledCreatedAtText = styled.div`
     color: ${theme.colors.silver};
 `;
 
-const PostView = (props: IPostView & {isAuthenticated: boolean}) => {
+const OnlyLogined = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+`;
+
+interface Props extends IPostView {
+    isAuthenticated: boolean;
+    onSetRepresentative?: () => void;
+    onUnsetRepresentative?: () => void;
+    onModify?: () => void;
+    onDelete?: () => void;
+}
+
+const PostView = (props: Props) => {
 
     return (
         <StyledPostView>
+            {props.isAuthenticated && (
+                <OnlyLogined>
+                    {props.postRole === 'REPRESENTATIVE' && (
+                        <Button size="small" onClick={props.onUnsetRepresentative}>
+                            대표 포스트 해제
+                        </Button>
+                    )}
+                    {props.postRole === 'NONE' && (
+                        <Button size="small" color="black" onClick={props.onSetRepresentative}>
+                            ✨대표 포스트로 설정
+                        </Button>
+                    )}
+                    <Button size="small" onClick={props.onModify}>
+                        수정
+                    </Button>
+                    <Button size="small" onClick={props.onDelete} color='red'>
+                        삭제
+                    </Button>
+                </OnlyLogined>
+            )}
             <PostInfo>
-                <div>{props.isAuthenticated ? '로그인중' : '비로그인중'}</div>
                 <TextWithBackground>📁{props.folderName}</TextWithBackground>
                 <StyledCreatedAtText>{props.createdAt}</StyledCreatedAtText>
             </PostInfo>
             <StyledTitle>{props.title}</StyledTitle>
             <StyledDivider />
             <QuillStyles>
-                <ReactQuill
-                    value={props.content}
-                    readOnly={true}
-                    theme="snow"
-                    modules={{toolbar: false}}
-                />
+                <Content content={props.content} />
             </QuillStyles>
         </StyledPostView>
     )

@@ -67,7 +67,9 @@ const PostCreateContainer = (props: IPostCreateProps) => {
                 </QuillStyles>
             </StyledEditorContainer>
             <StyledButtonsWrapper>
-                <Button color="black" onClick={props.create}>발행하기</Button>
+                <Button color="black" onClick={props.create}>
+                    {props.isModifyMode ? '변경하기' : '발행하기'}
+                </Button>
                 <Button color="white" onClick={props.saveDraft} disabled>임시저장</Button>
             </StyledButtonsWrapper>
         </StyledPostCreateContainer>

@@ -19,12 +19,13 @@ function App() {
                     <Route path="/test" element={<Test />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/:author" element={<ArchiveMain />} />
-                    <Route path="/:author/create" element={<ArchivePostCreate />} />
+                    <Route path="/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
+                    <Route path="/:author/:sequence/modify" element={<ArchivePostCreate modifyMode={true} />} />
                     <Route path="/:author/:sequence" element={<ArchivePost />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer
-                position='top-center'
+                position='top-right'
                 theme='light'
                 closeOnClick
                 hideProgressBar

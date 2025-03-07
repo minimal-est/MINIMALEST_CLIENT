@@ -11,6 +11,7 @@ export const theme = {
         deepblue: '#1E3A8A',
         forestgreen: '#228B22',
         sienna: '#E97451',
+        red: '#DC143C',
     },
 
     user: {

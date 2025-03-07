@@ -13,9 +13,9 @@ const StyledPostPreview = styled.div`
 
     background-color: ${theme.colors.ghostwhite};
     border-radius: 8px;
-    border-left: 10px solid ${theme.colors.sienna};
+    border-left: 4px solid ${theme.colors.sienna};
     padding: 30px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
     @media (max-width: 768px) {
         flex-direction: column;
@@ -26,8 +26,8 @@ const StyledPostPreview = styled.div`
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     &:hover {
         cursor: pointer;
-        transform: translateY(-5px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     }
 `;
 

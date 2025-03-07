@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
 
 interface Props {
-    color?: 'black' | 'white'
+    color?: 'black' | 'white' | 'red'
     size?: 'small' | 'medium' | 'large';
 }
 
@@ -27,12 +27,16 @@ export const DefaultStyledButton = styled.button<Props>`
     cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
     
     background-color: ${(props) => (
-        props.color === 'black' ? theme.colors.black : theme.colors.lightgray
+        props.color === 'black' ? theme.colors.black : 
+        props.color === 'red' ? theme.colors.red :
+        theme.colors.lightgray
     )};
     
     color: ${(props) => (
         props.disabled ? theme.colors.softgray :
-        props.color === 'black' ? theme.colors.white : theme.colors.black
+        props.color === 'black' ? theme.colors.white : 
+        props.color === 'red' ? theme.colors.white :         
+        theme.colors.black
     )};
 
     transition: all 0.2s ease-in-out;

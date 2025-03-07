@@ -4,7 +4,7 @@ import {DefaultStyledButton} from "./Button.styles.ts";
 interface Props {
     children: React.ReactNode;
     onClick?: () => void;
-    color?: 'black' | 'white';
+    color?: 'black' | 'white' | 'red';
     size?: 'small' | 'medium' | 'large';
     disabled?: boolean
 }

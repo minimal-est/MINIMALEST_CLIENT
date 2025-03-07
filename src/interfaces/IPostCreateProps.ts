@@ -14,4 +14,5 @@ export interface IPostCreateProps {
 
     create: () => void;
     saveDraft: () => void;
+    isModifyMode: boolean;
 }
