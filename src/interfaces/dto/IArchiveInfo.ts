@@ -3,5 +3,5 @@ export interface IArchiveInfo {
     mainTitle: string;
     subTitle: string;
     email: string;
-    profile_image_url: string;
+    profileImageUrl: string;
 };

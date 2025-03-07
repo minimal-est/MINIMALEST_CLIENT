@@ -40,7 +40,7 @@ const Header = (props: IArchiveInfo) => {
         <StyledHeader>
             <AuthorInfoWrapper>
                 <ProfileWrapper>
-                    <Profile src={props.profile_image_url} />
+                    <Profile src={props.profileImageUrl} />
                 </ProfileWrapper>
                 <StyledAuthor>{props.author}</StyledAuthor>
             </AuthorInfoWrapper>

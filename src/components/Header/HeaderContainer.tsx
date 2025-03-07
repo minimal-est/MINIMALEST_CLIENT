@@ -63,7 +63,7 @@ const HeaderContainer = (props: Props) => {
                             mainTitle={data?.mainTitle ?? ''}
                             subTitle={data?.subTitle ?? ''}
                             email={data?.email ?? ''}
-                            profile_image_url={data?.profile_image_url ?? ''}
+                            profileImageUrl={data?.profileImageUrl ?? ''}
                     />
                 </Link>
             </HeaderWrapper>
