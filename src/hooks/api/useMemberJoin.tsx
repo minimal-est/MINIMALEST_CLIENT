@@ -4,6 +4,7 @@ import {IApiResponse} from "../../interfaces/dto/IApiResponse.ts";
 import {IMemberJoinResponse} from "../../interfaces/dto/IMemberJoinResponse.tsx";
 import {useMutation} from "@tanstack/react-query";
 import {AxiosError} from "axios";
+import {IValidationError} from "../../interfaces/dto/IValidationError.ts";
 
 
 
@@ -13,7 +14,7 @@ const fetchMemberJoin = async (joinData: IMemberJoinRequest) => {
 }
 
 const useMemberJoin = () => {
-    return useMutation<IMemberJoinResponse, AxiosError<IApiResponse<string>>, IMemberJoinRequest>({
+    return useMutation<IMemberJoinResponse, AxiosError<IApiResponse<Array<IValidationError>>>, IMemberJoinRequest>({
         mutationFn: (joinData: IMemberJoinRequest) => fetchMemberJoin(joinData),
     })
 }

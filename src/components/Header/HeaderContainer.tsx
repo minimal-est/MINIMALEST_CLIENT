@@ -3,7 +3,7 @@ import Header from "./Header.tsx";
 import Spinner from "../common/Spinner.tsx";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 interface Props {
     author: string
@@ -39,7 +39,7 @@ const Logo = styled.img`
 `;
 
 const HeaderContainer = (props: Props) => {
-
+    const navigate = useNavigate();
     const {data, isLoading, isError} = useArchiveInfo(props.author);
 
     if (isLoading) {
@@ -47,7 +47,7 @@ const HeaderContainer = (props: Props) => {
     }
 
     if (isError) {
-        return <p>😢일시적인 오류로 아카이브를 불러오는 데 실패했습니다.. 죄송합니다!</p>;
+        navigate('/error/404');
     }
 
     return (
@@ -58,7 +58,7 @@ const HeaderContainer = (props: Props) => {
                 </Link>
             </LogoWrapper>
             <HeaderWrapper>
-                <Link to={`/${props.author}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/archive/${props.author}`} style={{ textDecoration: 'none' }}>
                     <Header author={data?.author ?? ''}
                             mainTitle={data?.mainTitle ?? ''}
                             subTitle={data?.subTitle ?? ''}

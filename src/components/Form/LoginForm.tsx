@@ -1,15 +1,30 @@
 import Input from "../Input/Input.tsx";
 import Button from "../Button/Button.tsx";
-import {useState} from "react";
 import useAuthLogin from "../../hooks/api/useAuthLogin.tsx";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {ILoginSuccessResponse} from "../../interfaces/dto/ILoginSuccessResponse.ts";
-import {ButtonGroup, InputGroupWrapper, FormWrapper, InputGroup, LabelWrapper, InputWrapper} from "./Form.styles.ts";
+import {
+    ButtonGroup,
+    InputGroupWrapper,
+    FormWrapper,
+    InputGroup,
+    LabelWrapper,
+    InputWrapper,
+    ErrorWrapper
+} from "./Form.styles.ts";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {ILoginRequest} from "../../interfaces/dto/ILoginRequest.ts";
+import {AxiosError} from "axios";
+import {IApiResponse} from "../../interfaces/dto/IApiResponse.ts";
+import {IValidationError} from "../../interfaces/dto/IValidationError.ts";
 
 const LoginForm = () => {
-    const [email, setEmail] = useState('');
-    const [rawPassword, setRawPassword] = useState('');
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = useForm<ILoginRequest>();
 
     const {mutate} = useAuthLogin();
     const navigate = useNavigate();
@@ -18,14 +33,11 @@ const LoginForm = () => {
         navigate('/join');
     }
 
-    const onClickLogin = () => {
+    const onSubmit: SubmitHandler<ILoginRequest> = (data) => {
         const loadingToastId = toast.loading('잠시만 기다려주세요..')
 
-        mutate(
-            { email, rawPassword },
-            {
-                onSuccess: (response: ILoginSuccessResponse) => {
-                    console.log(response);
+        mutate(data, {
+                onSuccess: () => {
                     toast.update(loadingToastId, {
                         render: `성공적으로 로그인 되었습니다!`,
                         type: 'success',
@@ -34,17 +46,27 @@ const LoginForm = () => {
                     });
                     navigate('/');
                 },
-                onError: (error) => {
-                    let errorMessage = '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
+                onError: (error: AxiosError<IApiResponse<Array<IValidationError>>>) => {
+                    let message = '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
 
                     if (error.status === 400) {
-                        errorMessage = '입력값이 비어있는지 확인해주세요!';
+                        if (error.response) {
+                            const data = error.response.data;
+                            message = data.message;
+                            const validationErrors = data['data'];
+                            validationErrors?.forEach((error: IValidationError) => {
+                                setError(error.field as keyof ILoginRequest, {
+                                    type: 'manual',
+                                    message: error.message,
+                                });
+                            });
+                        }
                     } else if (error.status === 404) {
-                        errorMessage = '회원 정보가 유효하지 않습니다!';
+                        message = '회원 정보가 유효하지 않습니다!';
                     }
 
                     toast.update(loadingToastId, {
-                        render: errorMessage,
+                        render: message,
                         type: 'error',
                         isLoading: false,
                         autoClose: 3000,
@@ -55,38 +77,43 @@ const LoginForm = () => {
     }
 
     return (
-        <FormWrapper>
+        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
             <InputGroupWrapper>
                 <InputGroup>
                     <LabelWrapper>
-                        <div>이메일</div>
+                        <label htmlFor='email'>이메일</label>
                     </LabelWrapper>
                     <InputWrapper>
                         <Input
+                            type='text'
                             placeholder='이메일'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            {...register('email')}
                         />
+                        <ErrorWrapper>
+                            {errors.email && <span>{errors.email.message}</span>}
+                        </ErrorWrapper>
                     </InputWrapper>
                 </InputGroup>
                 <InputGroup>
                     <LabelWrapper>
-                        <div>비밀번호</div>
+                        <label htmlFor='rawPassword'>비밀번호</label>
                     </LabelWrapper>
                     <InputWrapper>
                         <Input
                             type='password'
                             placeholder='비밀번호'
-                            value={rawPassword}
-                            onChange={(e) => setRawPassword(e.target.value)}
+                            {...register('rawPassword')}
                         />
+                        <ErrorWrapper>
+                            {errors.rawPassword && <span>{errors.rawPassword.message}</span>}
+                        </ErrorWrapper>
                     </InputWrapper>
                 </InputGroup>
             </InputGroupWrapper>
             <ButtonGroup>
                 <Button
                     color='black'
-                    onClick={onClickLogin}
+                    type={"submit"}
                 >
                     로그인
                 </Button>

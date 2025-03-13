@@ -37,7 +37,7 @@ const ArchivePostCreate = (props: Props) => {
                 toast.error('잘못된 접근입니다!', {
                     autoClose: 3000,
                 })
-                navigate(`/${author}`);
+                navigate(`/archive/${author}`);
             }
 
             // 입력값 채우기
@@ -56,7 +56,7 @@ const ArchivePostCreate = (props: Props) => {
                 toast.error('권한이 없습니다. 로그인 해주세요!', {
                     autoClose: 3000,
                 })
-                navigate(`/${author}`);
+                navigate(`/archive/${author}`);
             }
         }
 
@@ -91,7 +91,7 @@ const ArchivePostCreate = (props: Props) => {
                     isLoading: false,
                     autoClose: 3000,
                 })
-                navigate(`/${data.author}/${data.sequence}`);
+                navigate(`/archive/${data.author}/${data.sequence}`);
             },
             onError: (error: AxiosError) => {
                 let errorMessage = '서버 오류가 발생했습니다. 잠시 후 다시 시해주세요.' +error;

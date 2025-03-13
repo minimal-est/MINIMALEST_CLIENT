@@ -8,6 +8,7 @@ import Login from "./pages/Login.tsx";
 import ArchivePost from "./pages/ArchivePost.tsx";
 import Join from "./pages/Join.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ArchiveCreate from "./pages/ArchiveCreate.tsx";
 
 const queryClient = new QueryClient({});
 
@@ -19,10 +20,12 @@ function App() {
                 <Routes>
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/:author" element={<ArchiveMain />} />
-                    <Route path="/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
-                    <Route path="/:author/:sequence/modify" element={<ArchivePostCreate modifyMode={true} />} />
-                    <Route path="/:author/:sequence" element={<ArchivePost />} />
+                    <Route path="/create" element={<ArchiveCreate />} />
+                    <Route path="/archive/:author" element={<ArchiveMain />} />
+                    <Route path="/archive/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
+                    <Route path="/archive/:author/:sequence/modify" element={<ArchivePostCreate modifyMode={true} />} />
+                    <Route path="/archive/:author/:sequence" element={<ArchivePost />} />
+                    <Route path="/error/404" element={<NotFound />} />
                     <Route element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

@@ -35,6 +35,8 @@ const Editor = (props: Props) => {
         if (quillRef.current) {
             const quill = quillRef.current.getEditor();
             const toolbar = quill.getModule('toolbar');
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             toolbar.addHandler('image', () => handleImageButtonClick(quillRef));
         }
     }, []);

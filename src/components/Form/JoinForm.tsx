@@ -1,4 +1,3 @@
-import { useState } from "react";
 import axios, {AxiosError} from "axios";
 import {IApiResponse} from "../../interfaces/dto/IApiResponse.ts";
 import {IFileResponse} from "../../interfaces/dto/IFileResponse.ts";
@@ -8,9 +7,20 @@ import Button from "../Button/Button.tsx";
 import instance from "../../utils/instance.ts";
 import useMemberJoin from "../../hooks/api/useMemberJoin.tsx";
 import {useNavigate} from "react-router-dom";
-import {ButtonGroup, FormWrapper, InputGroup, InputGroupWrapper, InputWrapper, LabelWrapper} from "./Form.styles.ts";
+import {
+    ButtonGroup,
+    ErrorWrapper,
+    FormWrapper,
+    InputGroup,
+    InputGroupWrapper,
+    InputWrapper,
+    LabelWrapper
+} from "./Form.styles.ts";
 import Thumbnail from "../Post/Thumbnail.tsx";
 import styled from "styled-components";
+import {IValidationError} from "../../interfaces/dto/IValidationError.ts";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {IMemberJoinRequest} from "../../interfaces/dto/IMemberJoinRequest.ts";
 
 const ProfilePreviewWrapper = styled.div`
     display: flex;
@@ -33,21 +43,18 @@ const ProfilePreview = styled.div`
 `;
 
 const Join = () => {
-    const [formData, setFormData] = useState({
-        username: "",
-        email: "",
-        rawPassword: "",
-        profileImageUrl: "",
-    });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+        setValue,
+        watch
+    } = useForm<IMemberJoinRequest>();
+
     const {mutate} = useMemberJoin();
     const navigate = useNavigate();
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value,
-        });
-    };
+    const profileImageUrl = watch("profileImageUrl");
 
     const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -73,7 +80,7 @@ const Join = () => {
             const data = response.data['data']!;
             const virtualUrl = data.virtualUrl;
 
-            setFormData({ ...formData, profileImageUrl: virtualUrl }); // URL 저장
+            setValue("profileImageUrl", virtualUrl);
 
             toast.update(loadingToastId, {
                 render: '업로드 성공!',
@@ -99,9 +106,9 @@ const Join = () => {
         }
     };
 
-    const handleJoinSubmit = async () => {
+    const onSubmit: SubmitHandler<IMemberJoinRequest> = (data) => {
         const loadingToastId = toast.loading('가입 진행 중입니다..');
-        mutate(formData, {
+        mutate(data, {
             onSuccess: () => {
                 toast.update(loadingToastId, {
                     render: '가입 성공! 🎉',
@@ -112,15 +119,25 @@ const Join = () => {
 
                 navigate('/login');
             },
-            onError: (error: AxiosError<IApiResponse<string>>) => {
+            onError: (error: AxiosError<IApiResponse<Array<IValidationError>>>) => {
                 let message = '서버 오류입니다! 잠시 후 다시 시도해주세요.';
+
+                const response = error.response;
+                const data = response?.data;
 
                 if (error.status === 400) {
                     message = '필수 항목을 모두 입력해주세요!';
-                    const data = error.response?.data;
                     if (data && data.message) {
                         message = data.message;
                     }
+
+                    const validationErrors = data?.data;
+                    validationErrors?.forEach((error: IValidationError) => {
+                        setError(error.field as keyof IMemberJoinRequest, {
+                            type: 'manual',
+                            message: error.message
+                        });
+                    });
                 }
 
                 if (error.status === 409) {
@@ -138,60 +155,69 @@ const Join = () => {
     };
 
     const handleImageRemove = () => {
-        setFormData({
-            ...formData,
-            profileImageUrl: "",
-        });
-
+        setValue("profileImageUrl", "");
         const fileInput = document.getElementById("profileImageFile") as HTMLInputElement;
         if (fileInput) fileInput.value = "";
     }
 
     return (
-        <FormWrapper>
+        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
             <InputGroupWrapper>
                 <div>
                     <span>이메일은 비밀번호를 찾거나 변경할 때 사용됩니다. 중요한 소식 또한 이메일로 전송됩니다.</span>
                 </div>
                 <InputGroup>
                     <LabelWrapper>
-                        <label>대표이름</label>
+                        <label htmlFor="username">대표이름</label>
                     </LabelWrapper>
                     <InputWrapper>
-                        <Input type="text" name="username" value={formData.username} onChange={handleInputChange} />
+                        <Input type="text" {...register('username')} />
+                        <ErrorWrapper>
+                            {errors.username && <span>{errors.username.message}</span>}
+                        </ErrorWrapper>
                     </InputWrapper>
                 </InputGroup>
                 <InputGroup>
                     <LabelWrapper>
-                        <label>이메일</label>
+                        <label htmlFor="email">이메일</label>
                     </LabelWrapper>
                     <InputWrapper>
-                        <Input type="email" name="email" value={formData.email} onChange={handleInputChange} />
+                        <Input type="email" {...register('email')} />
+                        <ErrorWrapper>
+                            {errors.email && <span>{errors.email.message}</span>}
+                        </ErrorWrapper>
                     </InputWrapper>
                 </InputGroup>
                 <InputGroup>
                     <LabelWrapper>
-                        <label>비밀번호</label>
+                        <label htmlFor="rawPassword">비밀번호</label>
                     </LabelWrapper>
                     <InputWrapper>
-                        <Input type="password" name="rawPassword" value={formData.rawPassword} onChange={handleInputChange} />
+                        <Input type="password" {...register('rawPassword')} />
+                        <ErrorWrapper>
+                            {errors.rawPassword && <span>{errors.rawPassword.message}</span>}
+                        </ErrorWrapper>
                     </InputWrapper>
                 </InputGroup>
                 <InputGroup>
                     <LabelWrapper>
-                        <label>대표 프로필</label>
+                        <label htmlFor="profileImageFile">대표 프로필</label>
                     </LabelWrapper>
                     <Button color={"red"} size={"small"} onClick={handleImageRemove}>프로필 이미지 초기화</Button>
-                    <Input type="file" id="profileImageFile" accept="image/*" onChange={handleImageUpload} />
+                    <Input
+                        type="file"
+                        id="profileImageFile"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                    />
                 </InputGroup>
                 <ProfilePreviewWrapper>
                     <ProfilePreview>
-                        {formData.profileImageUrl &&
-                            <Thumbnail src={formData.profileImageUrl} />}
+                        {profileImageUrl && <Thumbnail src={profileImageUrl} />}
                     </ProfilePreview>
                 </ProfilePreviewWrapper>
                 <ButtonGroup>
-                    <Button onClick={handleJoinSubmit} color={"black"}>회원가입</Button>
+                    <Button type={"submit"} color={"black"}>회원가입</Button>
                 </ButtonGroup>
             </InputGroupWrapper>
         </FormWrapper>

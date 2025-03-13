@@ -14,6 +14,7 @@ const useArchiveInfo = (author: string) => {
         queryKey: ['archiveInfo', author],
         queryFn: () => fetchArchiveInfo(author),
         enabled: !!author,
+        retry: 0,
     });
 };
 

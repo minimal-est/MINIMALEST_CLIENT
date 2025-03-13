@@ -115,7 +115,7 @@ const PostPreview = (props: IPostPreview) => {
     const navigate = useNavigate();
 
     return (
-        <StyledPostPreview onClick={() => navigate(`/${props.author}/${props.sequence}`)}>
+        <StyledPostPreview onClick={() => navigate(`/archive/${props.author}/${props.sequence}`)}>
             {props.thumbnailUrl && (
                 <PostThumbnail>
                     <Thumbnail src={props.thumbnailUrl}/>

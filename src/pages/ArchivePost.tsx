@@ -38,7 +38,7 @@ const ArchivePost = () => {
         toast.error(`포스트를 불러오는 데 실패했습니다! ${error?.message}`, {
             autoClose: 3000,
         })
-        navigate(`/${author}`);
+        navigate(`/archive/${author}`);
     }
 
     const onSetRepresentative = async () => {
@@ -96,13 +96,12 @@ const ArchivePost = () => {
                 queryClient.invalidateQueries({
                     queryKey: ['slicePostPreviews']
                 });
-                navigate(`/${author}`);
+                navigate(`/archive/${author}`);
                 toast.success('포스트가 삭제되었습니다!', {
                     autoClose: 3000,
                 });
             },
             onError: () => {
-                console.log()
                 toast.error('실패했습니다! 잠시 후 다시 시도해주세요!', {
                     autoClose: 3000,
                 });
@@ -111,7 +110,7 @@ const ArchivePost = () => {
     }
 
     const onEdit = async () => {
-        navigate(`/${author}/${sequence}/modify`);
+        navigate(`/archive/${author}/${sequence}/modify`);
     }
 
     return (

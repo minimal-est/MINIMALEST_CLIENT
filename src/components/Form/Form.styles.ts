@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import {theme} from "../styles/theme.ts";
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,6 +30,10 @@ export const InputGroup = styled.div`
 `;
 
 export const InputWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    color: ${theme.colors.red};
+    font-size: 12px;
 `;
 
 
@@ -43,4 +48,7 @@ export const LabelWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+`;
+
+export const ErrorWrapper = styled.div`
 `;
