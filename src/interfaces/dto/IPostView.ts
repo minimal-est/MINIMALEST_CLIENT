@@ -5,7 +5,8 @@ export interface IPostView {
     folderId: number;
     folderName: string;
     postRole: string;
-
+    isModified: boolean;
+    hitCount: number;
     createdAt: string;
     lastModifiedAt: string;
 }

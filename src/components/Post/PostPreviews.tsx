@@ -29,6 +29,8 @@ const PostPreviews = (props: Props) => {
                     sequence={postPreview.sequence}
                     thumbnailUrl={postPreview.thumbnailUrl}
                     createdAt={postPreview.createdAt}
+                    isModified={postPreview.isModified}
+                    hitCount={postPreview.hitCount}
                     lastModifiedAt={postPreview.lastModifiedAt}
                     folderName={postPreview.folderName}
                 />

@@ -125,9 +125,10 @@ const ArchivePost = () => {
                       folderName={postView.folderName}
                       createdAt={postView.createdAt}
                       postRole={postView.postRole}
+                      hitCount={postView.hitCount}
                       lastModifiedAt={postView.lastModifiedAt}
+                      isModified={postView.isModified}
                       isAuthenticated={isAuthenticated}
-
                       onSetRepresentative={onSetRepresentative}
                       onUnsetRepresentative={onSetNone}
                       onModify={onEdit}

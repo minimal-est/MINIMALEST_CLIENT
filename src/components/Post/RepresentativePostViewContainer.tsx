@@ -1,8 +1,8 @@
 import RepresentativePostView from "./RepresentativePostView.tsx";
-import usePostViewWithRole from "../../hooks/api/usePostViewWithRole.tsx";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
 import {StyledDivider, StyledTitle} from "./postView.styles.ts";
+import usePostViewsWithRole from "../../hooks/api/usePostViewsWithRole.tsx";
 
 interface Props {
     author: string;
@@ -23,14 +23,14 @@ const StyledPostView = styled.div`
 `;
 
 const RepresentativePostViewContainer = (props: Props) => {
-    const {data} = usePostViewWithRole(props.author, 'REPRESENTATIVE');
+    const {data} = usePostViewsWithRole(props.author, 'REPRESENTATIVE');
 
     return (
-        (data &&
+        (data && data.numberOfElements > 0 &&
             <StyledPostView>
-                <StyledTitle>{data.title}</StyledTitle>
+                <StyledTitle>{data.content[0].title}</StyledTitle>
                 <StyledDivider />
-                <RepresentativePostView content={data.content} />
+                <RepresentativePostView content={data.content[0].content} />
             </StyledPostView>
         )
     )

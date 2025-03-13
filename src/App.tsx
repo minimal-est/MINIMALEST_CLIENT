@@ -6,7 +6,8 @@ import ArchivePostCreate from "./pages/ArchivePostCreate.tsx";
 import {ToastContainer} from "react-toastify";
 import Login from "./pages/Login.tsx";
 import ArchivePost from "./pages/ArchivePost.tsx";
-import Test from "./components/Test.tsx";
+import Join from "./pages/Join.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient({});
 
@@ -16,12 +17,13 @@ function App() {
             <ReactQueryDevtools initialIsOpen={false} />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/test" element={<Test />} />
+                    <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/:author" element={<ArchiveMain />} />
                     <Route path="/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
                     <Route path="/:author/:sequence/modify" element={<ArchivePostCreate modifyMode={true} />} />
                     <Route path="/:author/:sequence" element={<ArchivePost />} />
+                    <Route element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer

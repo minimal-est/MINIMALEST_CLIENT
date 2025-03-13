@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef} from "react";
-import ReactQuill, {Quill} from "react-quill-new";
+import ReactQuill from "react-quill-new";
 import 'react-quill-new/dist/quill.snow.css';
 import 'react-quill-new/dist/quill.bubble.css';
 

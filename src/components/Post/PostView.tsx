@@ -6,6 +6,7 @@ import TextWithBackground from "../Text/TextWithBackground.tsx";
 import Button from "../Button/Button.tsx";
 import Content from "./Content.tsx";
 import {StyledDivider, StyledTitle} from "./postView.styles.ts";
+import PostHit from "./PostHit.tsx";
 
 const StyledPostView = styled.div`
     display: flex;
@@ -27,6 +28,11 @@ const PostInfo = styled.div`
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+`;
+
+const PostStatistic = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `;
 
 const StyledCreatedAtText = styled.div`
@@ -75,8 +81,13 @@ const PostView = (props: Props) => {
             )}
             <PostInfo>
                 <TextWithBackground>📁{props.folderName}</TextWithBackground>
-                <StyledCreatedAtText>{props.createdAt}</StyledCreatedAtText>
+                <StyledCreatedAtText>
+                    {props.createdAt} {props.isModified && '(수정됨)'}
+                </StyledCreatedAtText>
             </PostInfo>
+            <PostStatistic>
+                <PostHit hitCount={props.hitCount} />
+            </PostStatistic>
             <StyledTitle>{props.title}</StyledTitle>
             <StyledDivider />
             <QuillStyles>

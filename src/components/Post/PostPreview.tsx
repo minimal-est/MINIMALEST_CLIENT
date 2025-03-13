@@ -4,12 +4,15 @@ import Thumbnail from "./Thumbnail.tsx";
 import {theme} from "../styles/theme.ts";
 import TextWithBackground from "../Text/TextWithBackground.tsx";
 import {useNavigate} from "react-router-dom";
+import PostHit from "./PostHit.tsx";
 
 const StyledPostPreview = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: start;
+    
+    height: 100%;
 
     background-color: ${theme.colors.ghostwhite};
     border-radius: 8px;
@@ -45,14 +48,15 @@ const PostThumbnail = styled.div`
 const PostWrap = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     flex: 1;
+    height: 100%;
     margin-left: 20px;
 `;
 
 const PostContent = styled.div`
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     height: 100%;
     word-break: break-word;
     overflow: hidden;
@@ -77,6 +81,13 @@ const PostInfo = styled.div`
     }
 `;
 
+const PostStatistic = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: auto;
+`;
+
 const StyledTitleText = styled.div`
     font-weight: bold;
     font-size: 27px;
@@ -97,6 +108,9 @@ const StyledFolderNameText = styled.div`
     font-size: 14px;
 `;
 
+const StyledHitCount = styled.div`
+`;
+
 const PostPreview = (props: IPostPreview) => {
     const navigate = useNavigate();
 
@@ -112,12 +126,19 @@ const PostPreview = (props: IPostPreview) => {
                     <TextWithBackground>
                         <StyledFolderNameText>📁{props.folderName}</StyledFolderNameText>
                     </TextWithBackground>
-                    <StyledCreatedAtText>{props.createdAt}</StyledCreatedAtText>
+                    <StyledCreatedAtText>
+                        {props.createdAt} {props.isModified && '(수정됨)'}
+                    </StyledCreatedAtText>
                 </PostInfo>
                 <PostContent>
                     <StyledTitleText>{props.title}</StyledTitleText>
                     <StyledContentText>{props.summary}</StyledContentText>
                 </PostContent>
+                <PostStatistic>
+                    <StyledHitCount>
+                        <PostHit hitCount={props.hitCount} />
+                    </StyledHitCount>
+                </PostStatistic>
             </PostWrap>
         </StyledPostPreview>
     )
