@@ -5,7 +5,6 @@ import BackgroundContainer from "./components/styles/BackgroundContainer.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <>
-
         <GlobalStyles />
         <BackgroundContainer>
             <App />
