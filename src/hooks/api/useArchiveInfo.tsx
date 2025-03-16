@@ -14,6 +14,8 @@ const useArchiveInfo = (author: string) => {
         queryKey: ['archiveInfo', author],
         queryFn: () => fetchArchiveInfo(author),
         enabled: !!author,
+        staleTime: 1000 * 60 * 5, // 5분
+        gcTime: 1000 * 60 * 10, // 10분
         retry: 0,
     });
 };
