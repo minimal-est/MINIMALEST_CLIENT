@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nginx-config
-          path: nginx/nginx.conf
+          path: nginx/app.conf
 
   docker:
     runs-on: ubuntu-latest
