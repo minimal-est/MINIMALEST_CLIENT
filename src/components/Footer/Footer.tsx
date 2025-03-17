@@ -21,7 +21,7 @@ const Footer = () => {
     return (
         <StyledFooter>
             <StyledCopyright>ⓒ 2025. 31n5ang(Minsang Song) All rights reserved.</StyledCopyright>
-            <Link to=''>개인정보처리방침</Link>
+            {/*<Link to=''>개인정보처리방침</Link>*/}
             <Link to='https://github.com/minimal-est'>Github</Link>
         </StyledFooter>
     )

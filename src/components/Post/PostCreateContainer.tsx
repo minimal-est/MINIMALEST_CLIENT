@@ -6,6 +6,8 @@ import {QuillStyles} from "../Editor/QuillStyles.ts";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
 import PostFolderSelect from "./PostFolderSelect.tsx";
+import {useState} from "react";
+import FolderModal from "../Modal/FolderModal.tsx";
 
 const StyledPostCreateContainer = styled.div`
     display: flex;
@@ -44,6 +46,11 @@ const FolderSelectWrapper = styled.div`
 `;
 
 const PostCreateContainer = (props: IPostCreateProps) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModel = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
     return (
         <StyledPostCreateContainer>
             <StyledEditorContainer>
@@ -55,7 +62,7 @@ const PostCreateContainer = (props: IPostCreateProps) => {
                         onChange={props.onChangeFolder}
                         folders={props.folders}
                     />
-                    <Button size="small" disabled>관리</Button>
+                    <Button size="small" onClick={openModel}>관리</Button>
                 </FolderSelectWrapper>
                 <Input
                     value={props.titleValue}
@@ -72,6 +79,9 @@ const PostCreateContainer = (props: IPostCreateProps) => {
                 </Button>
                 <Button color="white" onClick={props.saveDraft} disabled>임시저장</Button>
             </StyledButtonsWrapper>
+
+            {/* 모달 여부 */}
+            {isModalOpen && <FolderModal onClose={closeModal} author={props.author}/>}
         </StyledPostCreateContainer>
     )
 }

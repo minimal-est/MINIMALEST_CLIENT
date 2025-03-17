@@ -32,8 +32,6 @@ export const InputGroup = styled.div`
 export const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    color: ${theme.colors.red};
-    font-size: 12px;
 `;
 
 
@@ -51,4 +49,6 @@ export const LabelWrapper = styled.div`
 `;
 
 export const ErrorWrapper = styled.div`
+    color: ${theme.colors.red};
+    font-size: 12px;
 `;
