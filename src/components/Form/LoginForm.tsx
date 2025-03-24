@@ -17,6 +17,8 @@ import {ILoginRequest} from "../../interfaces/dto/ILoginRequest.ts";
 import {AxiosError} from "axios";
 import {IApiResponse} from "../../interfaces/dto/IApiResponse.ts";
 import {IValidationError} from "../../interfaces/dto/IValidationError.ts";
+import GoogleIconButton from "../Button/GoogleIconButton.tsx";
+import {IAuthType} from "../../interfaces/dto/IAuthType.ts";
 
 const LoginForm = () => {
     const {
@@ -34,9 +36,14 @@ const LoginForm = () => {
     }
 
     const onSubmit: SubmitHandler<ILoginRequest> = (data) => {
-        const loadingToastId = toast.loading('잠시만 기다려주세요..')
+        const loadingToastId = toast.loading('잠시만 기다려주세요..');
 
-        mutate(data, {
+        const requestData = {
+            ...data,
+            authType: IAuthType.JWT,
+        }
+
+        mutate(requestData, {
                 onSuccess: () => {
                     toast.update(loadingToastId, {
                         render: `성공적으로 로그인 되었습니다!`,
@@ -74,6 +81,20 @@ const LoginForm = () => {
                 }
             }
         )
+    }
+
+    const onClickGoogleIcon = () => {
+        const requestGoogleOAuthUri = `https://accounts.google.com/o/oauth2/auth?client_id=629220996636-524ubcma8j4bkjmfaq4dd1jeehjebe71.apps.googleusercontent.com&redirect_uri=http://localhost:8080/api/auth/oauth/google&response_type=code&scope=openid%20email%20profile`;
+
+        const requestGoogleOAuth = async () => {
+            try {
+                window.location.href = requestGoogleOAuthUri;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        requestGoogleOAuth();
     }
 
     return (
@@ -123,6 +144,12 @@ const LoginForm = () => {
                 >
                     회원가입
                 </Button>
+            </ButtonGroup>
+            <div>
+                회원가입 없이 바로 시작하기
+            </div>
+            <ButtonGroup>
+                <GoogleIconButton type="button" onClick={onClickGoogleIcon} />
             </ButtonGroup>
         </FormWrapper>
     )

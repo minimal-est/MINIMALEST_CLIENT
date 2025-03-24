@@ -21,6 +21,7 @@ import styled from "styled-components";
 import {IValidationError} from "../../interfaces/dto/IValidationError.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IMemberJoinRequest} from "../../interfaces/dto/IMemberJoinRequest.ts";
+import {IAuthType} from "../../interfaces/dto/IAuthType.ts";
 
 const ProfilePreviewWrapper = styled.div`
     display: flex;
@@ -108,7 +109,13 @@ const Join = () => {
 
     const onSubmit: SubmitHandler<IMemberJoinRequest> = (data) => {
         const loadingToastId = toast.loading('가입 진행 중입니다..');
-        mutate(data, {
+
+        const requestData = {
+            ...data,
+            authType: IAuthType.JWT,
+        }
+
+        mutate(requestData, {
             onSuccess: () => {
                 toast.update(loadingToastId, {
                     render: '가입 성공! 🎉',
@@ -142,6 +149,12 @@ const Join = () => {
 
                 if (error.status === 409) {
                     message = '이메일 또는 대표이름이 이미 존재합니다!';
+                }
+
+                if (error.status === 500) {
+                    if (error.response && error.response.data.message) {
+                        message = error.response.data.message;
+                    }
                 }
 
                 toast.update(loadingToastId, {

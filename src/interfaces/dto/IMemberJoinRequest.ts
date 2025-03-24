@@ -1,3 +1,5 @@
+import {IAuthType} from "./IAuthType.ts";
+
 export interface IMemberJoinRequest {
     username: string;
 
@@ -6,4 +8,6 @@ export interface IMemberJoinRequest {
     email: string;
 
     profileImageUrl: string;
+
+    authType: IAuthType;
 }

@@ -33,13 +33,13 @@ instance.interceptors.response.use(
         if (status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
 
-            if (originalRequest.url === '/api/auth/refresh') {
+            if (originalRequest.url === '/api/auth/token/refresh') {
                 return Promise.reject(error);
             }
 
             try {
                 // Refresh Token 활용하여 Access Token 재발급 시도
-                const refreshResponse = await instance.post('/api/auth/refresh');
+                const refreshResponse = await instance.post('/api/auth/token/refresh');
                 const newAccessToken = refreshResponse.headers['minimalest-access-token'];
 
                 localStorage.setItem('accessToken', newAccessToken);

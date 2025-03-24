@@ -7,7 +7,7 @@ import {ILoginSuccessResponse} from "../../interfaces/dto/ILoginSuccessResponse.
 import {IValidationError} from "../../interfaces/dto/IValidationError.ts";
 
 const fetchAuthLogin = async (loginRequest: ILoginRequest) => {
-    const response = await instance.post<IApiResponse<ILoginRequest>>('/api/auth/login', loginRequest);
+    const response = await instance.post<IApiResponse<ILoginRequest>>('/api/auth/token', loginRequest);
     const accessToken = response.headers['minimalest-access-token'];
     localStorage.setItem('accessToken', accessToken);
     return response.data['data']!;

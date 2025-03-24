@@ -6,7 +6,7 @@ const fetchEmailFromToken = async () => {
 
     if (!accessToken) {
         try {
-            const refreshResponse = await instance.post('/api/auth/refresh');
+            const refreshResponse = await instance.post('/api/auth/token/refresh');
             const newAccessToken = refreshResponse.headers['minimalest-access-token'];
             localStorage.setItem('accessToken', newAccessToken);
             console.log('AccessToken을 임의적으로 재발급 받았음');
