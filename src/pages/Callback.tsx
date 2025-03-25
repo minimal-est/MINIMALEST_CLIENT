@@ -18,6 +18,7 @@ const Callback = () => {
                 autoClose: 3000,
             });
             navigate('/');
+            return;
         }
 
         if (isNew && isNew === 'false') {
@@ -26,6 +27,7 @@ const Callback = () => {
                 autoClose: 3000,
             });
             navigate('/');
+            return;
         }
 
         if (error && error === 'conflict') {
@@ -34,6 +36,7 @@ const Callback = () => {
                 autoClose: 3000,
             });
             navigate('/login');
+            return;
         }
 
         // 정상적인 경로가 아닐경우
@@ -41,6 +44,7 @@ const Callback = () => {
             autoClose: 3000,
         });
         navigate('/login');
+        return;
 
     }, []);
 
