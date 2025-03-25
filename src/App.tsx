@@ -9,6 +9,8 @@ import ArchivePost from "./pages/ArchivePost.tsx";
 import Join from "./pages/Join.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ArchiveCreate from "./pages/ArchiveCreate.tsx";
+import Main from "./pages/Main.tsx";
+import Callback from "./pages/Callback.tsx";
 
 const queryClient = new QueryClient({});
 
@@ -18,9 +20,11 @@ function App() {
             <ReactQueryDevtools initialIsOpen={false} />
             <BrowserRouter>
                 <Routes>
+                    <Route path="/" element={<Main />} />
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/create" element={<ArchiveCreate />} />
+                    <Route path="/callback/oauth" element={<Callback />} />
                     <Route path="/archive/:author" element={<ArchiveMain />} />
                     <Route path="/archive/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
                     <Route path="/archive/:author/:sequence/modify" element={<ArchivePostCreate modifyMode={true} />} />
