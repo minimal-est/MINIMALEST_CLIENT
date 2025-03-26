@@ -12,31 +12,43 @@ const Callback = () => {
         const isNew = params.get('isNew');
         const error = params.get('error');
 
-        if (isNew && isNew === 'true') {
-            // 새로 회원가입
-            toast.success('성공적으로 가입되었습니다! 🎉', {
-                autoClose: 3000,
-            });
-            navigate('/');
-            return;
+        if (isNew) {
+            if (isNew === 'true') {
+                // 새로 회원가입
+                toast.success('성공적으로 가입되었습니다! 🎉', {
+                    autoClose: 3000,
+                });
+                navigate('/');
+                return;
+            }
+
+            if (isNew === 'false') {
+                // 기존 로그인
+                toast.success('로그인 성공!', {
+                    autoClose: 3000,
+                });
+                navigate('/');
+                return;
+            }
         }
 
-        if (isNew && isNew === 'false') {
-            // 기존 로그인
-            toast.success('로그인 성공!', {
-                autoClose: 3000,
-            });
-            navigate('/');
-            return;
-        }
+        if (error) {
+            if (error === 'conflict') {
+                // 이미 존재하는 회원
+                toast.error('이미 가입된 이메일입니다!', {
+                    autoClose: 3000,
+                });
+                navigate('/login');
+                return;
+            }
 
-        if (error && error === 'conflict') {
-            // 이미 존재하는 회원
-            toast.error('이미 가입된 이메일입니다!', {
-                autoClose: 3000,
-            });
-            navigate('/login');
-            return;
+            if (error === 'access_denied') {
+                toast.info('계정의 접근 권한이 거부되었습니다.', {
+                    autoClose: 3000,
+                });
+                navigate('/login');
+                return;
+            }
         }
 
         // 정상적인 경로가 아닐경우
