@@ -87,7 +87,8 @@ const LoginForm = () => {
         const requestGoogleOAuthUri =
             'https://accounts.google.com/o/oauth2/auth' +
             '?client_id=688506214339-beda52o8rtufe2c98nndck5hb5eqmddv.apps.googleusercontent.com' +
-            '&redirect_uri=https://minimalest.kr/api/auth/oauth/google&response_type=code&scope=openid%20email%20profile';
+            '&redirect_uri=https://minimalest.kr/api/auth/oauth/google&response_type=code' +
+            '&scope=openid%20email%20profile';
 
         const requestGoogleOAuth = async () => {
             try {

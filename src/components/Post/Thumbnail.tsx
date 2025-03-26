@@ -10,7 +10,6 @@ const StyledImg = styled.img`
 `;
 
 const Thumbnail = (props: Props) => {
-    console.log(props.src)
     return (
         <StyledImg {...props} alt={props.alt}/>
     );
