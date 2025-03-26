@@ -1,10 +1,13 @@
 import React, {useEffect, useMemo, useRef} from "react";
-import ReactQuill from "react-quill-new";
+import ReactQuill, {Quill} from "react-quill-new";
 import 'react-quill-new/dist/quill.snow.css';
 import 'react-quill-new/dist/quill.bubble.css';
+import ImageDropAndPaste from "quill-image-drop-and-paste";
 
 import {initCustomIcons} from "./quillIcons.ts";
-import {handleImageButtonClick} from "./quillHandlers.ts";
+import {handleImageButtonClick, handleImage} from "./quillHandlers.ts";
+
+Quill.register('modules/imageDropAndPaste', ImageDropAndPaste)
 
 interface Props {
     value: string;
@@ -29,7 +32,10 @@ const Editor = (props: Props) => {
             ['code-block'],
             ['clean'],
         ],
-    }), []);
+        imageDropAndPaste: {
+            handler: (file: File | string) => handleImage(file, quillRef)
+        }
+    }), [quillRef]);
 
     useEffect(() => {
         if (quillRef.current) {
