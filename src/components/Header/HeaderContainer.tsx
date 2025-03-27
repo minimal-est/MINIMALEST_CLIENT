@@ -53,9 +53,9 @@ const HeaderContainer = (props: Props) => {
     return (
         <StyledHeaderContainer>
             <LogoWrapper>
-                <Link to={`/`} style={{ textDecoration: 'none' }}>
+                <div>
                     <Logo src='/assets/M.png'/>
-                </Link>
+                </div>
             </LogoWrapper>
             <HeaderWrapper>
                 <Link to={`/archive/${props.author}`} style={{ textDecoration: 'none' }}>
