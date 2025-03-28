@@ -1,6 +1,7 @@
 import useArchiveInfos from "../../hooks/api/useArchiveInfos.tsx";
 import MyArchive from "./MyArchive.tsx";
 import styled from "styled-components";
+import TextWithAccent from "../Text/TextWithAccent.tsx";
 
 interface Props {
     email: string;
@@ -36,7 +37,9 @@ const MyArchiveList = (props: Props) => {
             {archiveInfos &&
                 <ArchiveInfoContainerWrapper>
                     <ArchiveCountWrapper>
-                        현재 {archiveInfos.count}개의 아카이브가 존재합니다.
+                        <TextWithAccent>
+                            현재 {archiveInfos.count}개의 아카이브가 존재합니다.
+                        </TextWithAccent>
                     </ArchiveCountWrapper>
                     <ArchiveInfosWrapper>
                         {archiveInfos && archiveInfos.archiveInfoResponses.map(

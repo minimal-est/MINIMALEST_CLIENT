@@ -7,12 +7,12 @@ const StyledHeader = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding: 20px;
+    color: ${theme.colors.charcoal};
 `;
 
 const StyledAuthor = styled.div`
-    font-size: 32px;
-    font-weight: bold;
-    color: ${theme.colors.ghostwhite};
+    font-size: 1.5rem;
 `;
 
 const ProfileWrapper = styled.div`
@@ -35,16 +35,43 @@ const AuthorInfoWrapper = styled.div`
     gap: 10px;
 `;
 
+const TitleWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: ${theme.colors.black};
+`;
+
+const MainTitleWrapper = styled.div`
+    font-weight: bold;
+    font-size: 2.5rem;
+    word-break: break-all;
+`;
+
+const SubTitleWrapper = styled.div`
+    font-size: 1.1rem;
+`;
+
 const Header = (props: IArchiveInfo) => {
     return (
         <StyledHeader>
             <AuthorInfoWrapper>
-                <ProfileWrapper>
-                    <Profile src={props.profileImageUrl} />
-                </ProfileWrapper>
-                <StyledAuthor>{props.author}</StyledAuthor>
+                {props.profileImageUrl &&
+                    <ProfileWrapper>
+                        <Profile src={props.profileImageUrl} />
+                    </ProfileWrapper>
+                }
+                <StyledAuthor>@{props.author}</StyledAuthor>
             </AuthorInfoWrapper>
-            <div>{props.mainTitle}</div>
+            <TitleWrapper>
+                <MainTitleWrapper>
+                    {props.mainTitle}
+                </MainTitleWrapper>
+                <SubTitleWrapper>
+                    {props.subTitle}
+                </SubTitleWrapper>
+            </TitleWrapper>
         </StyledHeader>
     )
 }

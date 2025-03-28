@@ -2,7 +2,6 @@ import useArchiveInfo from "../../hooks/api/useArchiveInfo.tsx";
 import Header from "./Header.tsx";
 import Spinner from "../common/Spinner.tsx";
 import styled from "styled-components";
-import {theme} from "../styles/theme.ts";
 import {Link, useNavigate} from "react-router-dom";
 
 interface Props {
@@ -15,13 +14,9 @@ const StyledHeaderContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 20px;
-    
     width: 100%;
-    
     padding-top: 20px;
     padding-bottom: 20px;
-    
-    background-color: ${theme.colors.sienna};
 `;
 
 const HeaderWrapper = styled.div`
@@ -32,6 +27,7 @@ const HeaderWrapper = styled.div`
 const LogoWrapper = styled.div`
     position: absolute;
     left: 25px;
+    top: 25px;
 `;
 
 const Logo = styled.img`

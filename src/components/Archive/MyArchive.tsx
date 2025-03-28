@@ -1,6 +1,7 @@
 import {IArchiveInfo} from "../../interfaces/dto/IArchiveInfo.ts";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import {theme} from "../styles/theme.ts";
 
 interface Props {
     archiveInfo: IArchiveInfo
@@ -9,11 +10,14 @@ interface Props {
 const MyArchiveWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    border-top: 1px solid ${theme.colors.charcoal};
+    border-bottom: 2px solid ${theme.colors.charcoal};
     border-radius: 5px;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+    padding: 10px;
 `;
 
 const TitleWrapper = styled.div`
@@ -25,11 +29,13 @@ const TitleWrapper = styled.div`
 `;
 
 const AuthorWrapper = styled.div`
-    font-size: 20px;
+    letter-spacing: -1px;
+    font-size: 1.2rem;
 `;
 
 const MainTitleWrapper = styled.div`
-    font-size: 2.5rem;
+    font-weight: bold;
+    font-size: 2rem;
 `;
 
 const SubTitleWrapper = styled.div`

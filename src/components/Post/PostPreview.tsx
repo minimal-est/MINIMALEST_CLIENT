@@ -16,7 +16,8 @@ const StyledPostPreview = styled.div`
 
     background-color: ${theme.colors.ghostwhite};
     border-radius: 8px;
-    border-left: 4px solid ${theme.colors.sienna};
+    //border-left: 4px solid ${theme.colors.sienna};
+    //border-bottom: 2px solid ${theme.colors.charcoal};
     padding: 30px;
     //box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 

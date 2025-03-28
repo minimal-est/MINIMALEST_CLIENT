@@ -31,9 +31,7 @@ const ArchiveListWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    gap: 20px;
+    gap: 40px;
 `;
 
 const ArchiveInfosWrapper = styled.div`
@@ -41,8 +39,6 @@ const ArchiveInfosWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
 `;
 
 const Main = () => {
