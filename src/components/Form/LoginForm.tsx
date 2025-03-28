@@ -90,7 +90,7 @@ const LoginForm = () => {
             '&redirect_uri=https://minimalest.kr/api/auth/oauth/google&response_type=code' +
             '&scope=openid%20email%20profile';
 
-        const requestGoogleOAuth = async () => {
+        const requestGoogleOAuth = () => {
             try {
                 window.location.href = requestGoogleOAuthUri;
             } catch (e) {
@@ -113,6 +113,7 @@ const LoginForm = () => {
                             type='text'
                             placeholder='이메일'
                             {...register('email')}
+                            id='email'
                         />
                         <ErrorWrapper>
                             {errors.email && <span>{errors.email.message}</span>}
@@ -128,6 +129,7 @@ const LoginForm = () => {
                             type='password'
                             placeholder='비밀번호'
                             {...register('rawPassword')}
+                            id='rawPassword'
                         />
                         <ErrorWrapper>
                             {errors.rawPassword && <span>{errors.rawPassword.message}</span>}
