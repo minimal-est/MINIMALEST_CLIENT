@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo, useRef} from "react";
-import ReactQuill, {Quill} from "react-quill-new";
-import 'react-quill-new/dist/quill.snow.css';
-import 'react-quill-new/dist/quill.bubble.css';
+import ReactQuill, {Quill} from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 import ImageDropAndPaste from "quill-image-drop-and-paste";
 
 import {initCustomIcons} from "./quillIcons.ts";
@@ -41,8 +40,6 @@ const Editor = (props: Props) => {
         if (quillRef.current) {
             const quill = quillRef.current.getEditor();
             const toolbar = quill.getModule('toolbar');
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             toolbar.addHandler('image', () => handleImageButtonClick(quillRef));
         }
     }, []);
@@ -56,6 +53,7 @@ const Editor = (props: Props) => {
                 onChange={props.onChange}
                 modules={modules}
                 placeholder={`"첫 줄을 쓰는 것은 어마어마한 공포이자 마술이며, 기도인 동시에 수줍음이다" - 작가<존 스타인벡>.`}
+                preserveWhitespace
             />
         </div>
     );

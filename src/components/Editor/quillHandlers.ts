@@ -2,11 +2,11 @@ import instance from "../../utils/instance.ts";
 import {IApiResponse} from "../../interfaces/dto/IApiResponse.ts";
 import {IFileResponse} from "../../interfaces/dto/IFileResponse.ts";
 import React from "react";
-import ReactQuill, {Quill} from "react-quill-new";
+import ReactQuill from "react-quill";
 import {toast} from "react-toastify";
 import {AxiosError} from "axios";
 
-export const handleImageButtonClick = (quillRef: React.RefObject<ReactQuill>) => {
+export const handleImageButtonClick = (quillRef: React.RefObject<ReactQuill | null>) => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
@@ -36,7 +36,7 @@ export const handleImage = async (file: File | string, quillRef: React.RefObject
             const quill = quillRef.current.getEditor();
             const range = quill.getSelection();
             if (range) {
-                quill.insertEmbed(range.index, 'image', imageUrl, Quill.sources.USER);
+                quill.insertEmbed(range.index, 'image', imageUrl);
             }
         }
 

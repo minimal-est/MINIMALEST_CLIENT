@@ -1,18 +1,22 @@
-import ReactQuill from "react-quill-new";
+import ReactQuill from "react-quill";
 import {QuillStyles} from "../Editor/QuillStyles.ts";
+import DOMPurify from "dompurify";
 
 interface Props {
     content: string;
 }
 
 const Content = (props: Props) => {
+    const santinizedHtmlContent = DOMPurify.sanitize(props.content);
+
     return (
         <QuillStyles>
             <ReactQuill
-                value={props.content}
+                value={santinizedHtmlContent}
                 readOnly={true}
                 theme="snow"
                 modules={{toolbar: false}}
+                preserveWhitespace
             />
         </QuillStyles>
     )

@@ -1,4 +1,4 @@
-import {Quill} from "react-quill-new";
+import {Quill} from "react-quill";
 import {clearFormatSvg, codeSvg} from "../common/svg/icons.ts";
 
 const iconColor = '#000';
