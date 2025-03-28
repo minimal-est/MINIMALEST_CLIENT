@@ -52,7 +52,7 @@ const ArchivePostCreate = (props: Props) => {
     useEffect(() => {
         const validateLogin = async () => {
             const validationRes = await validateAuthorFromEmailToken(author);
-            if (!validationRes) {
+            if (!validationRes.isValid) {
                 toast.error('권한이 없습니다. 로그인 해주세요!', {
                     autoClose: 3000,
                 })

@@ -28,7 +28,7 @@ const ArchivePost = () => {
     useEffect(() => {
         const validateLogin = async () => {
             const validationRes = await validateAuthorFromEmailToken(author);
-            setIsAuthenticated(validationRes);
+            setIsAuthenticated(validationRes.isValid);
         }
 
         validateLogin();
