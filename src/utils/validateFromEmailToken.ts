@@ -3,12 +3,12 @@ import {IMemberFindResponse} from "../interfaces/dto/IMemberFindResponse.ts";
 import instance from "./instance.ts";
 import {IApiResponse} from "../interfaces/dto/IApiResponse.ts";
 
-const validateAuthorFromEmailToken = async (author: string): Promise<{ isValid: boolean, email?: string }> => {
+const validateFromEmailToken = async (): Promise<{ isValid: boolean, email?: string }> => {
     const email = await fetchEmailFromToken();
     if (!email) return { isValid: false };
 
     try {
-        const response = await instance.get<IApiResponse<IMemberFindResponse>>(`/api/member/${email}/archive/${author}`);
+        const response = await instance.get<IApiResponse<IMemberFindResponse>>(`/api/member/${email}`);
         const data = response.data['data'];
 
         if (data && data.email === email) {
@@ -22,4 +22,4 @@ const validateAuthorFromEmailToken = async (author: string): Promise<{ isValid: 
     }
 }
 
-export default validateAuthorFromEmailToken;
+export default validateFromEmailToken;
