@@ -54,7 +54,9 @@ const HeaderContainer = (props: Props) => {
         <StyledHeaderContainer>
             <LogoWrapper>
                 <div>
-                    <Logo src='/assets/M.png'/>
+                    <Link to={'/'}>
+                        <Logo src='/assets/M.png'/>
+                    </Link>
                 </div>
             </LogoWrapper>
             <HeaderWrapper>
