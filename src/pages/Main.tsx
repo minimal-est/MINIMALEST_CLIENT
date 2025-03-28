@@ -88,7 +88,7 @@ const Main = () => {
                                 <Link to={'/login'}>5초만에 로그인 | 가입하고 아카이브를 만들어보세요! ✍🏻 {'>'}</Link>
                             </HelpLinkWrapper>
                             <HelpLinkWrapper>
-                                <Link to={'/archives'}>다른 작가들의 아카이브 둘러보기 🔎 {'>'}</Link>
+                                <Link to={'/archive-network'}>다른 작가들의 아카이브 둘러보기 🔎 {'>'}</Link>
                             </HelpLinkWrapper>
                         </HelpWrapper>
                     </FlexColumnWrapper>

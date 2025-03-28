@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound.tsx";
 import ArchiveCreate from "./pages/ArchiveCreate.tsx";
 import Main from "./pages/Main.tsx";
 import Callback from "./pages/Callback.tsx";
+import ArchiveNetwork from "./pages/ArchiveNetwork.tsx";
 
 const queryClient = new QueryClient({});
 
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/create" element={<ArchiveCreate />} />
+                    <Route path="/archive-network" element={<ArchiveNetwork />} />
                     <Route path="/callback/oauth" element={<Callback />} />
                     <Route path="/archive/:author" element={<ArchiveMain />} />
                     <Route path="/archive/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
