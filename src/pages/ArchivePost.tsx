@@ -10,6 +10,7 @@ import useSetRepresentativePost from "../hooks/api/useSetRepresentativePost.tsx"
 import {useQueryClient} from "@tanstack/react-query";
 import useSetNonePost from "../hooks/api/useSetNonePost.tsx";
 import usePostDelete from "../hooks/api/usePostDelete.tsx";
+import {Helmet} from "react-helmet-async";
 
 const ArchivePost = () => {
     const params = useParams();
@@ -115,6 +116,13 @@ const ArchivePost = () => {
 
     return (
         <ArchiveLayout author={author}>
+            {/* Meta data */}
+            <Helmet>
+                <title>{postView ? `${postView.title} - Minimalest` : `@${author} 아카이브`}</title>
+                <meta name='description' content={postView ? `${postView.content.slice(0, 150)}...` : `아카이브의 포스트 내용입니다.`} />
+                <meta name='author' content={author}/>
+            </Helmet>
+
             {isLoading && <Spinner />}
             {!isLoading && postView &&
                 <PostView author={postView.author}

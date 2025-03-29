@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {FlexColumnWrapper} from "../components/Layout/Flex.styles.ts";
 import styled from "styled-components";
 import MyArchiveList from "../components/Archive/MyArchiveList.tsx";
+import {Helmet} from "react-helmet-async";
 
 const MainWrapper = styled.div`
     display: flex;
@@ -59,6 +60,13 @@ const Main = () => {
 
     return (
         <MainLayout>
+            {/* Meta data */}
+            <Helmet>
+                <title>Minimalest</title>
+                <meta name='description' content='더 빠르고, 가볍게 글을 쓰고 관리해보세요. 다양한 아카이브를 둘러보고 소통해보세요.'/>
+                <meta name='author' content='Minimalest'/>
+            </Helmet>
+
             <MainWrapper>
                 {isMemberLoading && <Spinner />}
 
