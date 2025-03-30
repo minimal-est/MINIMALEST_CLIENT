@@ -1,12 +1,11 @@
 import {IPostView} from "../../interfaces/dto/IPostView.ts";
-import {QuillStyles} from "../Editor/QuillStyles.ts";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
 import TextWithBackground from "../Text/TextWithBackground.tsx";
 import Button from "../Button/Button.tsx";
-import Content from "./Content.tsx";
 import {StyledDivider, StyledTitle} from "./postView.styles.ts";
 import PostHit from "./PostHit.tsx";
+import MarkdownPreview from "../Editor/MarkdownPreview.tsx";
 
 const StyledPostView = styled.div`
     display: flex;
@@ -90,9 +89,7 @@ const PostView = (props: Props) => {
             </PostStatistic>
             <StyledTitle>{props.title}</StyledTitle>
             <StyledDivider />
-            <QuillStyles>
-                <Content content={props.content} />
-            </QuillStyles>
+            <MarkdownPreview content={props.content} />
         </StyledPostView>
     )
 }

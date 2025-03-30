@@ -1,26 +1,32 @@
+import {toast} from "react-toastify";
+import {AxiosError} from "axios";
 import instance from "../../utils/instance.ts";
 import {IApiResponse} from "../../interfaces/dto/IApiResponse.ts";
 import {IFileResponse} from "../../interfaces/dto/IFileResponse.ts";
+import insertToTextArea from "./editorUtils.ts";
 import React from "react";
-import ReactQuill from "react-quill";
-import {toast} from "react-toastify";
-import {AxiosError} from "axios";
 
-export const handleImageButtonClick = (quillRef: React.RefObject<ReactQuill | null>) => {
-    const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-
-    input.onchange = async (e) => {
-        const file = (e.target as HTMLInputElement).files?.[0];
+export const handlePasteUpload = async (data: DataTransfer, onChange: React.Dispatch<React.SetStateAction<string>>) => {
+    const files: File[] = [];
+    for (let index = 0; index < data.items.length; index++) {
+        const file = data.files.item(index);
         if (file) {
-            await handleImage(file, quillRef);
+            files.push(file);
         }
     }
+
+    await Promise.all(
+        files.map(async (file) => {
+            const url = await handleImage(file);
+            if (!url || url === '') return;
+            const insertedMarkdown = insertToTextArea(`![이미지 설명](${url})`);
+            if (!insertedMarkdown) return;
+            onChange(insertedMarkdown);
+        })
+    )
 }
 
-export const handleImage = async (file: File | string, quillRef: React.RefObject<ReactQuill | null>) => {
+export const handleImage = async (file: File | string) => {
     const loadingToastId = toast.loading('이미지 업로드 중입니다..');
 
     try {
@@ -32,20 +38,14 @@ export const handleImage = async (file: File | string, quillRef: React.RefObject
 
         const imageUrl = await handleImageUpload(file as File);
 
-        if (quillRef.current) {
-            const quill = quillRef.current.getEditor();
-            const range = quill.getSelection();
-            if (range) {
-                quill.insertEmbed(range.index, 'image', imageUrl);
-            }
-        }
-
         toast.update(loadingToastId, {
             render: '이미지 업로드 성공',
             type: 'success',
             isLoading: false,
             autoClose: 3000,
         });
+
+        return imageUrl;
     } catch (error: unknown) {
         let message = '이미지 업로드에 실패했습니다!';
         if (error instanceof AxiosError) {
@@ -60,6 +60,8 @@ export const handleImage = async (file: File | string, quillRef: React.RefObject
             isLoading: false,
             autoClose: 3000,
         });
+
+        return '';
     }
 };
 
