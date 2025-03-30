@@ -1,13 +1,12 @@
-import Editor from "../Editor/Editor.tsx";
 import Input from "../Input/Input.tsx";
 import Button from "../Button/Button.tsx";
 import {IPostCreateProps} from "../../interfaces/IPostCreateProps.ts";
-import {QuillStyles} from "../Editor/QuillStyles.ts";
 import styled from "styled-components";
 import {theme} from "../styles/theme.ts";
 import PostFolderSelect from "./PostFolderSelect.tsx";
 import {useState} from "react";
 import FolderModal from "../Modal/FolderModal.tsx";
+import MarkdownEditor from "../Editor/MarkdownEditor.tsx";
 
 const StyledPostCreateContainer = styled.div`
     display: flex;
@@ -45,6 +44,13 @@ const FolderSelectWrapper = styled.div`
     z-index: 2;
 `;
 
+const MarkdownEditorContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
 const PostCreateContainer = (props: IPostCreateProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -69,9 +75,12 @@ const PostCreateContainer = (props: IPostCreateProps) => {
                     onChange={props.onChangeTitleValue}
                     isTitle={true} placeholder="포스트 제목을 입력해주세요."
                 />
-                <QuillStyles>
-                    <Editor value={props.postValue} onChange={props.onChangePostValue} />
-                </QuillStyles>
+                <MarkdownEditorContainer>
+                    <MarkdownEditor
+                        value={props.postValue}
+                        onChange={props.onChangePostValue}
+                    />
+                </MarkdownEditorContainer>
             </StyledEditorContainer>
             <StyledButtonsWrapper>
                 <Button color="black" onClick={props.create}>

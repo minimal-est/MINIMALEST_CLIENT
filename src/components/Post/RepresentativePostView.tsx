@@ -1,4 +1,5 @@
-import Content from "./Content.tsx";
+import MarkdownPreview from "../Editor/MarkdownPreview.tsx";
+import {EditorStyles} from "../Editor/editorStyles.ts";
 
 interface Props {
     content: string;
@@ -6,9 +7,9 @@ interface Props {
 
 const RepresentativePostView = (props: Props) => {
     return (
-        <div>
-            <Content content={props.content} />
-        </div>
+        <EditorStyles>
+            <MarkdownPreview content={props.content} />
+        </EditorStyles>
     )
 }
 
