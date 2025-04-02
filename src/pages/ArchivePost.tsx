@@ -122,7 +122,6 @@ const ArchivePost = () => {
                 <meta name='description'
                       content={postView ? `${postView.content.slice(0, 150)}...` : `아카이브의 포스트 내용입니다.`}/>
                 <meta name='author' content={author}/>
-                <meta name="google-adsense-account" content="ca-pub-9321940671177516"/>
             </Helmet>
 
             {isLoading && <Spinner/>}

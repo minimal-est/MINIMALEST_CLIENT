@@ -49,7 +49,6 @@ const ArchiveMain = () => {
                 <title>@{author} 아카이브</title>
                 <meta name='description' content={author + "님의 아카이브에서 글을 통해 영감을 받아보세요."}/>
                 <meta name='author' content={author}/>
-                <meta name="google-adsense-account" content="ca-pub-9321940671177516"/>
             </Helmet>
 
             <StyledContainer>
