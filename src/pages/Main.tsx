@@ -62,7 +62,7 @@ const Main = () => {
         <MainLayout>
             {/* Meta data */}
             <Helmet>
-                <title>Minimalest</title>
+                <title>미니멀리스트 Minimalest</title>
                 <meta name='description' content='더 빠르고, 가볍게 글을 쓰고 관리해보세요. 다양한 아카이브를 둘러보고 소통해보세요.'/>
                 <meta name='author' content='Minimalest'/>
             </Helmet>
