@@ -134,6 +134,7 @@ const ArchivePost = () => {
                       createdAt={postView.createdAt}
                       postRole={postView.postRole}
                       hitCount={postView.hitCount}
+                      thumbnailUrl={postView.thumbnailUrl}
                       lastModifiedAt={postView.lastModifiedAt}
                       isModified={postView.isModified}
                       isAuthenticated={isAuthenticated}

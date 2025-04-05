@@ -10,6 +10,7 @@ import {AxiosError} from "axios";
 import {IPostCreateResponse} from "../interfaces/dto/IPostCreateResponse.ts";
 import usePostModify from "../hooks/api/usePostModify.tsx";
 import usePostView from "../hooks/api/usePostView.tsx";
+import LoadingModal from "../components/Modal/LoadingModal.tsx";
 
 interface Props {
     modifyMode: boolean;
@@ -28,7 +29,9 @@ const ArchivePostCreate = (props: Props) => {
     const [postValue, setPostValue] = useState<string>("");
     const [titleValue, setTitleValue] = useState<string>("");
     const [selectedFolder, setSelectedFolder] = useState<{value: number, label: string}>({value: -1, label: ''});
+    const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
     const {data: folderData,} = useFolderFlat(author);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (props.modifyMode) {
@@ -45,6 +48,7 @@ const ArchivePostCreate = (props: Props) => {
                 setPostValue(postViewData.content);
                 setTitleValue(postViewData.title);
                 setSelectedFolder({value: postViewData.folderId, label: postViewData.folderName});
+                setThumbnailUrl(postViewData.thumbnailUrl)
             }
         }
     }, []);
@@ -74,12 +78,14 @@ const ArchivePostCreate = (props: Props) => {
     }
 
     const onClickCreate = () => {
+        setLoading(true);
         const loadingToastId = toast.loading('포스트 생성 중입니다..');
 
         const data = {
             title: titleValue,
             content: postValue,
             folderId: selectedFolder?.value ?? -1,
+            thumbnailUrl: thumbnailUrl,
         };
 
         const mutationOptions = {
@@ -94,7 +100,7 @@ const ArchivePostCreate = (props: Props) => {
                 navigate(`/archive/${data.author}/${data.sequence}`);
             },
             onError: (error: AxiosError) => {
-                let errorMessage = '서버 오류가 발생했습니다. 잠시 후 다시 시해주세요.' +error;
+                let errorMessage = '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
 
                 if (error.status === 400) {
                     errorMessage = '입력값이 비어있는지 확인해주세요!';
@@ -108,6 +114,9 @@ const ArchivePostCreate = (props: Props) => {
                     isLoading: false,
                     autoClose: 3000,
                 });
+            },
+            onSettled: () => {
+                setLoading(false);
             }
         }
 
@@ -137,7 +146,12 @@ const ArchivePostCreate = (props: Props) => {
                 onChangeFolder={setSelectedFolder}
                 author={author}
                 isModifyMode={props.modifyMode}
+                thumbnailUrl={thumbnailUrl}
+                onChangeThumbnailUrl={setThumbnailUrl}
             />
+
+            {/* 로딩 여부 */}
+            {loading && <LoadingModal />}
         </ArchiveLayout>
     );
 };

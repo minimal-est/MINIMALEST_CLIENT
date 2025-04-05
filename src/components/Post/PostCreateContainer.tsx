@@ -7,6 +7,7 @@ import PostFolderSelect from "./PostFolderSelect.tsx";
 import {useState} from "react";
 import FolderModal from "../Modal/FolderModal.tsx";
 import MarkdownEditor from "../Editor/MarkdownEditor.tsx";
+import PostThumbnailForm from "./PostThumbnailForm.tsx";
 
 const StyledPostCreateContainer = styled.div`
     display: flex;
@@ -24,7 +25,7 @@ const StyledPostCreateContainer = styled.div`
 const StyledEditorContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 50px;
     
     width: 100%;
 `;
@@ -70,6 +71,12 @@ const PostCreateContainer = (props: IPostCreateProps) => {
                     />
                     <Button size="small" onClick={openModel}>관리</Button>
                 </FolderSelectWrapper>
+                <div>
+                    <PostThumbnailForm
+                        thumbnailUrl={props.thumbnailUrl}
+                        onChangeThumbnailUrl={props.onChangeThumbnailUrl}
+                    />
+                </div>
                 <Input
                     value={props.titleValue}
                     onChange={props.onChangeTitleValue}

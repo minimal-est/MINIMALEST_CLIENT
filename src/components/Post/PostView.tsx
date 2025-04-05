@@ -6,11 +6,12 @@ import Button from "../Button/Button.tsx";
 import {StyledDivider, StyledTitle} from "./postView.styles.ts";
 import PostHit from "./PostHit.tsx";
 import MarkdownPreview from "../Editor/MarkdownPreview.tsx";
+import Thumbnail from "./Thumbnail.tsx";
 
 const StyledPostView = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     background-color: ${theme.colors.ghostwhite};
     padding: 20px;
     border-radius: 10px;
@@ -44,6 +45,15 @@ const OnlyLogined = styled.div`
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
+`;
+
+const ThumbnailWrapper = styled.div`
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
 `;
 
 interface Props extends IPostView {
@@ -87,6 +97,11 @@ const PostView = (props: Props) => {
             <PostStatistic>
                 <PostHit hitCount={props.hitCount} />
             </PostStatistic>
+            {props.thumbnailUrl && (
+                <ThumbnailWrapper>
+                    <Thumbnail src={props.thumbnailUrl} />
+                </ThumbnailWrapper>
+            )}
             <StyledTitle>{props.title}</StyledTitle>
             <StyledDivider />
             <MarkdownPreview content={props.content} />

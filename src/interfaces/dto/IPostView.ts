@@ -7,6 +7,7 @@ export interface IPostView {
     postRole: string;
     isModified: boolean;
     hitCount: number;
+    thumbnailUrl: string;
     createdAt: string;
     lastModifiedAt: string;
 }
