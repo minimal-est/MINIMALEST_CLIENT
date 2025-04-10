@@ -62,6 +62,8 @@ const HeaderContainer = (props: Props) => {
                             subTitle={data?.subTitle ?? ''}
                             email={data?.email ?? ''}
                             profileImageUrl={data?.profileImageUrl ?? ''}
+                            archiveStyle={data?.archiveStyle ?? {styles: {}}}
+                            postStyle={data?.postStyle ?? {styles: {}}}
                     />
                 </Link>
             </HeaderWrapper>

@@ -2,12 +2,13 @@ import {IArchiveInfo} from "../../interfaces/dto/IArchiveInfo.ts";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {theme} from "../styles/theme.ts";
+import {IArchiveStyle} from "../../interfaces/IArchiveStyle.ts";
 
 interface Props {
     archiveInfo: IArchiveInfo
 }
 
-const MyArchiveWrapper = styled.div`
+const MyArchiveWrapper = styled.div<IArchiveStyle>`
     display: flex;
     flex-direction: row;
     border-top: 1px solid ${theme.colors.charcoal};
@@ -18,6 +19,9 @@ const MyArchiveWrapper = styled.div`
     gap: 1rem;
     flex-wrap: wrap;
     padding: 10px;
+    
+    background-color: ${({backgroundColor }) => backgroundColor || `transport`};
+    color: ${({ fontColor }) => fontColor || 'transport'};
 `;
 
 const TitleWrapper = styled.div`
@@ -48,7 +52,10 @@ const LinkWrapper = styled.div`
 
 const MyArchive = (props: Props) => {
     return (
-        <MyArchiveWrapper>
+        <MyArchiveWrapper
+            backgroundColor={props.archiveInfo.archiveStyle.styles['backgroundColor']}
+            fontColor={props.archiveInfo.archiveStyle.styles['fontColor']}
+        >
             <AuthorWrapper>
                 @ {props.archiveInfo.author}
             </AuthorWrapper>

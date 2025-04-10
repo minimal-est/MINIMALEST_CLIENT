@@ -12,6 +12,7 @@ import ArchiveCreate from "./pages/ArchiveCreate.tsx";
 import Main from "./pages/Main.tsx";
 import Callback from "./pages/Callback.tsx";
 import ArchiveNetwork from "./pages/ArchiveNetwork.tsx";
+import ArchiveConfig from "./pages/ArchiveConfig.tsx";
 
 const queryClient = new QueryClient({});
 
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/archive-network" element={<ArchiveNetwork />} />
                     <Route path="/callback/oauth" element={<Callback />} />
                     <Route path="/archive/:author" element={<ArchiveMain />} />
+                    <Route path="/archive/:author/config" element={<ArchiveConfig />} />
                     <Route path="/archive/:author/create" element={<ArchivePostCreate modifyMode={false} />} />
                     <Route path="/archive/:author/:sequence/modify" element={<ArchivePostCreate modifyMode={true} />} />
                     <Route path="/archive/:author/:sequence" element={<ArchivePost />} />

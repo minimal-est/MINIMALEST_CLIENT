@@ -8,7 +8,7 @@ const StyledHeader = styled.div`
     align-items: center;
     gap: 10px;
     padding: 20px;
-    color: ${theme.colors.charcoal};
+    //color: ${theme.colors.charcoal};
 `;
 
 const StyledAuthor = styled.div`
@@ -40,7 +40,7 @@ const TitleWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: ${theme.colors.black};
+    //color: ${theme.colors.black};
 `;
 
 const MainTitleWrapper = styled.div`
